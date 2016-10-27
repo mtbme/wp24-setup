@@ -10,11 +10,11 @@ The demo runs in a Docker container and it will not modify your host machine.
 This method requires Ubuntu 14.04 (newer versions might also work).
 
 #### Install docker
-sudo apt-get install docker.io
+<code>sudo apt-get install docker.io</code>
 
 #### Create a demo user and add it to the docker group (optional)
-sudo useradd -g docker -m rosdemo
-sudo passwd rosdemo
+<code>sudo useradd -g docker -m rosdemo</code>  
+<code>sudo passwd rosdemo</code>
 
 #### If you're using an existing user, add it to the docker group:
 <code>sudo adduser username docker</code>  
@@ -40,13 +40,13 @@ Stopping the ROS core: <code>docker stop roscore</code>
 Starting the ROS core again: <code>docker start roscore</code>  
 Enter the ROS core docker image: <code>docker exec -it roscore bash</code>  
 ROS logs can be found at .ros/logs/ on the host machine.  
-To remove the ROS docker image: </code>docker stop roscore && docker rm roscore</code>  
+To remove the ROS docker image: <code>docker stop roscore &amp;&amp; docker rm roscore</code>  
 
 #### Troubleshooting
 
 ##### If you can't see the GUI of the simulator, "Can't open display:"
-Check your host's GDM settings in /etc/gdm/custom.conf
-Remote X11 requests must be enabled. Add "DisallowTCP=false" to the "[security]" section.
+Check your host's GDM settings in <code>/etc/gdm/custom.conf</code>  
+Remote X11 requests must be enabled. Add <code>DisallowTCP=false</code> to the <code>[security]</code> section.
 
 ##### If the Gazebo simulator shows nothing or a "mixed up" world...
 Quit and restart the demo.
