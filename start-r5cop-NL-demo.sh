@@ -49,6 +49,10 @@ if [ ! -d "${demo_home}/NLdemo/" ]; then
   fail "R5-COP NL demo files are missing."
 fi
 
+if [ ! -x "${demo_home}/NLdemo/setup.sh" ]; then
+  chmod +x ${demo_home}/NLdemo/setup.sh ${demo_home}/NLdemo/start.sh
+fi
+
 NETDEV=$(ip route show |grep "default "|awk '{print $5}')
 IPZONE=$(ip addr show ${NETDEV}|grep "inet "|awk '{print $2}')
 IPADDR=$(echo $IPZONE | cut -d/ -f 1)
