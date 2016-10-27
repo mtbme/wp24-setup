@@ -45,8 +45,8 @@ fi
 
 demo_home=`pwd`
 
-if [ ! -d "${demo_home}/r5copdemo/" ]; then
-  fail "R5-COP demo files are missing."
+if [ ! -d "${demo_home}/NLdemo/" ]; then
+  fail "R5-COP NL demo files are missing."
 fi
 
 NETDEV=$(ip route show |grep "default "|awk '{print $5}')
@@ -58,7 +58,7 @@ if [ "$rosdocker" == "" ]; then
   if askif "ROS docker container does not exist. Create?" "y"; then
      ask rosdockername "Choose a short name for the ROS docker container" "roscore"
      echo "Creating and starting the ROS docker container..."
-     docker run -t -d --net=host --name $rosdockername -v ${demo_home}/.ros:/root/.ros -v ${demo_home}/.gazebo:/root/.gazebo -v ${demo_home}/jackal_navigation/:/root/jackal_navigation/ -v ${demo_home}/r5copdemo/:/root/r5copdemo/ ros:indigo $rosdockername ||  fail "Could not start ros docker image"
+     docker run -t -d --net=host --name $rosdockername -v ${demo_home}/.ros:/root/.ros -v ${demo_home}/.gazebo:/root/.gazebo -v ${demo_home}/jackal_navigation/:/root/jackal_navigation/ -v ${demo_home}/NLdemo/:/root/NLdemo/ ros:indigo $rosdockername ||  fail "Could not start ros docker image"
      # OLD docker run -t -d --name $rosdockername -v ${demo_home}/.ros:/root/.ros -v ${demo_home}/jackal_navigation/:/root/jackal_navigation/ -v ${demo_home}/r5copdemo/:/root/r5copdemo/ -p 11311:11311 ros:indigo $rosdockername ||  fail "Could not start ros docker image"
     is_running=$(docker ps -q --filter "ancestor=ros:indigo" --filter "status=running")
     if [ "$is_running" == "" ]; then
@@ -90,7 +90,8 @@ This script will now check the demo setup in the Docker container...
 EOF
 
 sleep 3
-docker exec -it $is_running /root/r5copdemo/setup.sh
+
+docker exec -it $is_running /root/NLdemo/setup.sh
 
 cat <<EOF
 Finished doing preflight checks.
@@ -106,4 +107,4 @@ ask pp "Press enter to start the demo." "enter"
 echo "Launching demo..."
 xhost +inet:${ROSIP}
 xhost +inet:${IPADDR}
-docker exec -it $is_running /bin/bash -c "export DISPLAY=${IPADDR}:0 && /root/r5copdemo/start.sh" || fail "Demo failed."
+docker exec -it $is_running /bin/bash -c "export DISPLAY=${IPADDR}:0 && /root/NLdemo/start.sh" || fail "Demo failed."
