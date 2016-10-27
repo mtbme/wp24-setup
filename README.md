@@ -17,7 +17,7 @@ sudo useradd -g docker -m rosdemo
 sudo passwd rosdemo
 
 #### If you're using an existing user, add it to the docker group:
-sudo adduser username docker
+<code>sudo adduser username docker</code>  
 and perform a logout+login sequence to activate the new group setup
 
 #### Login as the demo user and pull the demo files
@@ -26,21 +26,21 @@ and perform a logout+login sequence to activate the new group setup
 Transfer voice-agent.apk to the phone, enable installation from unknown sources and install the application.
 
 #### Setup and start the demo
-./start-r5cop-NL-demo.sh
+<code>./start-r5cop-NL-demo.sh</code>  
 For the first run it will do many things in the Docker container that will take a long time (5-10 minutes).
 Subsequent runs will be much faster (the demo will start in under a minute).
 If anything goes wrong, the procedure can be restarted by removing the docker container and running the script again.
 
 #### To manage the ROS core Docker container
 (assuming that the name of the container is "roscore")
-docker ps # Should show the roscore running
-docker ps -a # Shows all docker containers
-docker exec -it roscore rosversion -d # should report "indigo"
-Stopping the ROS core: docker stop roscore
-Starting the ROS core again: docker start roscore
-Enter the ROS core docker image: docker exec -it roscore bash
-ROS logs can be found at .ros/logs/ on the host machine.
-To remove the ROS docker image: docker stop roscore && docker rm roscore
+<code>docker ps</code> # Should show the roscore running  
+<code>docker ps -a</code> # Shows all docker containers  
+<code>docker exec -it roscore rosversion -d</code># should report "indigo"  
+Stopping the ROS core: <code>docker stop roscore</code>  
+Starting the ROS core again: <code>docker start roscore</code>  
+Enter the ROS core docker image: <code>docker exec -it roscore bash</code>  
+ROS logs can be found at .ros/logs/ on the host machine.  
+To remove the ROS docker image: </code>docker stop roscore && docker rm roscore</code>  
 
 #### Troubleshooting
 
