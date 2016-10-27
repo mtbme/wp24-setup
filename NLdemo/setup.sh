@@ -20,7 +20,8 @@ if [ ! -f ~/jackal_navigation/devel/setup.bash ]; then
   echo "--- Setting up Jackal navigation. This may take a while..."
   sleep 3
   mkdir -p ~/jackal_navigation/src
-  pushd ~/jackal_navigation/src && catkin_init_workspace
+  pushd ~/jackal_navigation/src
+  catkin_init_workspace
   git clone https://github.com/jackal/jackal.git
   git clone https://github.com/jackal/jackal_simulator.git
   git clone https://github.com/clearpathrobotics/LMS1xx.git
@@ -29,7 +30,7 @@ if [ ! -f ~/jackal_navigation/devel/setup.bash ]; then
   catkin_make
   echo done.
   echo "--- Setting up R5-COP demo world in Jackal..."
-  sed -i 's/"[^"]*jackal_race.world/"\/root\/r5copdemo\/r5cop_world.sdf/' /root/jackal_navigation/src/jackal_simulator/jackal_gazebo/launch/jackal_world.launch
+  sed -i 's/"[^"]*jackal_race.world/"\/root\/NLdemo\/r5cop_world.sdf/' /root/jackal_navigation/src/jackal_simulator/jackal_gazebo/launch/jackal_world.launch
   echo done.
   popd
 else
@@ -40,7 +41,7 @@ source ~/jackal_navigation/devel/setup.bash
 
 if [ `grep -c jackal_race /opt/ros/indigo/share/jackal_gazebo/launch/jackal_world.launch` != 0 ]; then
   echo "--- Setting up R5-COP demo world in the global config..."
-  sed -i 's/"[^"]*jackal_race.world/"\/root\/r5copdemo\/r5cop_world.sdf/' /opt/ros/indigo/share/jackal_gazebo/launch/jackal_world.launch
+  sed -i 's/"[^"]*jackal_race.world/"\/root\/NLdemo\/r5cop_world.sdf/' /opt/ros/indigo/share/jackal_gazebo/launch/jackal_world.launch
   echo done.
 else
   echo "R5-COP demo world is ready."
