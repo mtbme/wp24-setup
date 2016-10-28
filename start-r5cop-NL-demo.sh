@@ -43,8 +43,8 @@ else
   echo Docker found at /usr/bin/docker.
 fi
 
-demo_home="$(dirname "$0")"
-cd "${demo_home}"
+cd "$(dirname "$0")"
+demo_home=`pwd`
 
 if [ ! -d "${demo_home}/NLdemo/" ]; then
   fail "R5-COP NL demo files are missing."
@@ -86,7 +86,7 @@ fi
 
 ROSIP=$(docker inspect --format '{{.NetworkSettings.IPAddress }}' $is_running )
 cat <<EOF
-ROS docker image is running as $is_running at $ROSIP.
+ROS docker image is running as $is_running at $IPADDR.
 You can stop it any time by issuing docker stop $is_running
 To remove the image use this command: docker rm $is_running
 ROS version is `docker exec -it $is_running rosversion -d`
