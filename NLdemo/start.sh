@@ -45,7 +45,8 @@ until [ "`rostopic list /R5COP_Management`" == "/R5COP_Management" ]; do
   echo -n "."
   sleep 3
 done
-echo "Ready. Voice Agent has been connected."
+echo "Ready."
+echo "Voice Agent has been connected."
 echo "- Starting jackal_navigation... (see odom.log and gmapping.log)"
 roslaunch jackal_navigation odom_navigation_demo.launch &> odom.log &
 roslaunch jackal_navigation gmapping.launch &> gmapping.log &
