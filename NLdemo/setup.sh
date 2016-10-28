@@ -4,6 +4,9 @@
 # Created by Tamás Mészáros <meszaros@mit.bme.hu>
 #
 
+# 
+cd "$(dirname "$0")"
+
 if [ ! -x /usr/bin/gazebo ] && [ -d /opt/ros/indigo ]; then
   echo "--- Installing the simulator. This may take a while..."
   sleep 3
@@ -52,13 +55,24 @@ if [ ! -x /usr/bin/java ]; then
   sleep 3
   apt-get -y install software-properties-common python-software-properties
   apt-add-repository -y ppa:webupd8team/java && apt-get update
-  apt-get -y install oracle-java8-installer
+  apt-get -y install oracle-java8-installer oracle-java8-set-default
+  ln -s /usr/lib/jvm/java-8-oracle /usr/lib/jvm/default-java
   echo done.
 else
   echo "Java is installed."
 fi
 
-if [ ! -x /usr/bin/gazebo ] || [ ! -d /opt/ros/indigo ] || [ ! -f ~/jackal_navigation/devel/setup.bash ] || [ `grep -c jackal_race /opt/ros/indigo/share/jackal_gazebo/launch/jackal_world.launch` != 0 ] || [ ! -x /usr/bin/java ]; then
+if [ ! -f AgentInterface/AgentInterface.jar ]; then
+  echo "--- Installing R5-COP demo agents..."
+  sleep 3
+  wget -q http://r5cop.mit.bme.hu/AgentInterface.zip
+  unzip -q AgentInterface.zip && rm AgentInterface.zip
+# TODO build the agents...
+#  git clone https://github.com/bme-mit-r5cop/wp24-agentinterface.git
+  echo done.
+fi
+
+if [ ! -x /usr/bin/gazebo ] || [ ! -d /opt/ros/indigo ] || [ ! -f ~/jackal_navigation/devel/setup.bash ] || [ `grep -c jackal_race /opt/ros/indigo/share/jackal_gazebo/launch/jackal_world.launch` != 0 ] || [ ! -x /usr/bin/java ] || [ ! -f AgentInterface/AgentInterface.jar ]; then
   echo "Setup failed."
 else
   echo "Setup seems to be fine."
