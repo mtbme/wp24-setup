@@ -70,6 +70,8 @@ if [ ! -f AgentInterface/AgentInterface.jar ]; then
 # TODO build the agents...
 #  git clone https://github.com/bme-mit-r5cop/wp24-agentinterface.git
   echo done.
+else
+  echo "R5-COP demo agents are installed."
 fi
 
 if [ ! -x /usr/bin/gazebo ] || [ ! -d /opt/ros/indigo ] || [ ! -f ~/jackal_navigation/devel/setup.bash ] || [ `grep -c jackal_race /opt/ros/indigo/share/jackal_gazebo/launch/jackal_world.launch` != 0 ] || [ ! -x /usr/bin/java ] || [ ! -f AgentInterface/AgentInterface.jar ]; then
