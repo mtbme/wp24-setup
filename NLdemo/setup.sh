@@ -11,7 +11,7 @@ if [ ! -x /usr/bin/gazebo ] && [ -d /opt/ros/indigo ]; then
   echo "--- Installing the simulator. This may take a while..."
   sleep 3
   apt-get update
-  apt-get -y install ros-indigo-jackal-simulator ros-indigo-jackal-desktop python-catkin-tools cmake python-catkin-pkg python-empy python-nose libgtest-dev ros-indigo-roslint ros-indigo-move-base ros-indigo-slam-gmapping ros-indigo-gazebo-ros-pkgs ros-indigo-gazebo-ros-control 
+  apt-get -y install ros-indigo-jackal-simulator ros-indigo-jackal-desktop python-catkin-tools cmake python-catkin-pkg python-empy python-nose libgtest-dev ros-indigo-roslint ros-indigo-move-base ros-indigo-slam-gmapping ros-indigo-gazebo-ros-pkgs ros-indigo-gazebo-ros-control unzip
   echo done.
 else
   echo "Gazebo is installed."
