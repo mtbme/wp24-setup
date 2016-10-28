@@ -59,5 +59,5 @@ cat <<EOF
 You should see additional commands appearing on the Voice Agent's interface in a few seconds.
 To stop the demo simply close the ROSDisplay window or say goodbye to the agent.
 EOF
-java -jar AgentInterface.jar $ROS_MASTER_URI &> agents.log
+(cd AgentInterface; java -jar AgentInterface.jar $ROS_MASTER_URI) &> agents.log
 echo "Demo has been stopped."
