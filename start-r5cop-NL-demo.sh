@@ -43,14 +43,15 @@ else
   echo Docker found at /usr/bin/docker.
 fi
 
-demo_home=`pwd`
+demo_home="$(dirname "$0")"
+cd "${demo_home}"
 
 if [ ! -d "${demo_home}/NLdemo/" ]; then
   fail "R5-COP NL demo files are missing."
 fi
 
 if [ ! -x "${demo_home}/NLdemo/setup.sh" ]; then
-  chmod +x ${demo_home}/NLdemo/setup.sh ${demo_home}/NLdemo/start.sh
+  chmod +x "${demo_home}/NLdemo/setup.sh" "${demo_home}/NLdemo/start.sh" chmod +x "${0}"
 fi
 
 NETDEV=$(ip route show |grep "default "|awk '{print $5}')
