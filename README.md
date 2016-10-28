@@ -27,7 +27,7 @@ Transfer voice-agent.apk to the phone, enable installation from unknown sources 
 
 #### Setup and start the demo
 <code>bash ./start-r5cop-NL-demo.sh</code>  
-For the first run it will do many things in the Docker container that will take a long time ( minutes).  
+For the first run it will do many things in the Docker container that will take a long time (10-20 minutes).  
 Subsequent runs will be much faster (the demo will start in under a minute).  
 If anything goes wrong, the procedure can be restarted by removing the docker container and running the script again.
 
