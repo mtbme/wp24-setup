@@ -51,7 +51,7 @@ if [ ! -d "${demo_home}/NLdemo/" ]; then
 fi
 
 if [ ! -x "${demo_home}/NLdemo/setup.sh" ]; then
-  chmod +x "${demo_home}/NLdemo/setup.sh" "${demo_home}/NLdemo/start.sh" chmod +x "${0}"
+  chmod +x "${demo_home}/NLdemo/setup.sh" "${demo_home}/NLdemo/start.sh" "${0}"
 fi
 
 NETDEV=$(ip route show |grep "default "|awk '{print $5}')
