@@ -26,15 +26,15 @@ and perform a logout+login sequence to activate the new group setup
 Transfer voice-agent.apk to the phone, enable installation from unknown sources and install the application.
 
 #### Setup and start the demo
-<code>./start-r5cop-NL-demo.sh</code>  
-For the first run it will do many things in the Docker container that will take a long time (5-10 minutes).
-Subsequent runs will be much faster (the demo will start in under a minute).
+<code>bash ./start-r5cop-NL-demo.sh</code>  
+For the first run it will do many things in the Docker container that will take a long time ( minutes).  
+Subsequent runs will be much faster (the demo will start in under a minute).  
 If anything goes wrong, the procedure can be restarted by removing the docker container and running the script again.
 
 #### To manage the ROS core Docker container
 (assuming that the name of the container is "roscore")
-<code>docker ps</code> # Should show the roscore running  
-<code>docker ps -a</code> # Shows all docker containers  
+<code>docker ps</code> # should show the roscore running  
+<code>docker ps -a</code> # shows all docker containers  
 <code>docker exec -it roscore rosversion -d</code># should report "indigo"  
 Stopping the ROS core: <code>docker stop roscore</code>  
 Starting the ROS core again: <code>docker start roscore</code>  
