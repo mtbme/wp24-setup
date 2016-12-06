@@ -50,3 +50,6 @@ Remote X11 requests must be enabled. Add <code>DisallowTCP=false</code> to the <
 
 ##### If the Gazebo simulator shows nothing or a "mixed up" world...
 Quit and restart the demo.
+
+##### If you see libGL errors about missing drivers in the logs
+See http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration for troubleshooting.
