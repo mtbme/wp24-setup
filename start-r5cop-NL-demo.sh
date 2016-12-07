@@ -95,7 +95,7 @@ EOF
 
 sleep 3
 
-docker exec -it $is_running /root/r5copdemo/setup.sh
+docker exec -it $is_running /root/NLdemo/setup.sh
 
 cat <<EOF
 Finished doing preflight checks.
@@ -111,4 +111,4 @@ ask pp "Press enter to start the demo." "enter"
 echo "Launching demo..."
 xhost +inet:${ROSIP}
 xhost +inet:${IPADDR}
-docker exec -it $is_running /bin/bash -c "/root/r5copdemo/start.sh" || fail "Demo failed."
+docker exec -it $is_running /bin/bash -c "/root/NLdemo/start.sh" || fail "Demo failed."
