@@ -57,13 +57,15 @@ fi
 NETDEV=$(ip route show |grep "default "|awk '{print $5}')
 IPZONE=$(ip addr show ${NETDEV}|grep "inet "|awk '{print $2}')
 IPADDR=$(echo $IPZONE | cut -d/ -f 1)
+DISP_ID=$(echo $DISPLAY|cut -d : -f 2)
+HOST_LSB=$(lsb_release  -c | cut -f 2)
 
 rosdocker=$(docker ps -qa --filter "ancestor=ros:indigo")
 if [ "$rosdocker" == "" ]; then
   if askif "ROS docker container does not exist. Create?" "y"; then
     ask rosdockername "Choose a short name for the ROS docker container" "roscore"
     echo "Creating and starting the ROS docker container..."
-    docker run -t -d --net=host --name $rosdockername -v ${demo_home}/.ros:/root/.ros -v ${demo_home}/.gazebo:/root/.gazebo -v ${demo_home}/jackal_navigation/:/root/jackal_navigation/ -v ${demo_home}/NLdemo/:/root/NLdemo/  -v /tmp/.X11-unix:/tmp/.X11-unix --device=/dev/dri:/dev/dri --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" ros:indigo $rosdockername ||  fail "Could not start ros docker image"
+    docker run -t -d --net=host --env "DISPLAY=unix:${DISP_ID}" --env "HOST_LSB=${HOST_LSB}" --name $rosdockername -v ${demo_home}/.ros:/root/.ros -v ${demo_home}/.gazebo:/root/.gazebo -v ${demo_home}/jackal_navigation/:/root/jackal_navigation/ -v ${demo_home}/NLdemo/:/root/NLdemo/  -v /tmp/.X11-unix:/tmp/.X11-unix:rw --device=/dev/dri:/dev/dri --env="QT_X11_NO_MITSHM=1" ros:indigo $rosdockername ||  fail "Could not start ros docker image"
     is_running=$(docker ps -q --filter "ancestor=ros:indigo" --filter "status=running")
     if [ "$is_running" == "" ]; then
       fail "Could not start the ros docker image"
@@ -83,24 +85,33 @@ else
   fi
 fi
 
-ROSIP=$(docker inspect --format '{{.NetworkSettings.IPAddress }}' $is_running )
+# No separate IP, we're using the host's network
+# ROS_IP=$(docker inspect --format '{{.NetworkSettings.IPAddress }}' $is_running )
+ROS_NAME=$(docker inspect --format '{{.Name }}' $is_running | cut -d / -f 2 )
+
 cat <<EOF
-ROS docker image is running as $is_running at $ROSIP.
-You can stop it any time by issuing docker stop $is_running
-To remove the image use this command: docker rm $is_running
-ROS version is `docker exec -it $is_running rosversion -d`
+ROS docker image is running as $ROS_NAME.
+You can stop it any time by issuing docker stop $ROS_NAME
+To remove the image use this command: docker rm $ROS_NAME
+ROS version is `docker exec -it $ROS_NAME rosversion -d`
 ----------------------------------------------------
 This script will now check the demo setup in the Docker container...
 EOF
 
 sleep 3
 
-docker exec -it $is_running /root/NLdemo/setup.sh
+#xhost +inet:${ROS_IP}
+#xhost +inet:${IPADDR}
+xhost +local:unix
+docker exec -it $ROS_NAME /root/NLdemo/setup.sh
+[ ! -f ${demo_home}/NLdemo/.setup_ok ] && fail "Setup failed in the Docker container."
 
 cat <<EOF
 Finished doing preflight checks.
 ----------------------------------------------------
 ROS core external addr is http://${IPADDR}:11311/
+Your display is at ${IPADDR}:${DISP_ID}
+Your host is running `lsb_release -d | cut -f 2` ($HOST_LSB)
 You may start the demo now.
 If anything goes wrong, stop the Docker container and start over.
 
@@ -109,6 +120,5 @@ EOF
 ask pp "Press enter to start the demo." "enter"
 
 echo "Launching demo..."
-xhost +inet:${ROSIP}
-xhost +inet:${IPADDR}
-docker exec -it $is_running /bin/bash -c "/root/NLdemo/start.sh" || fail "Demo failed."
+docker exec -it $ROS_NAME /bin/bash -c "/root/NLdemo/start.sh" || fail "Demo failed."
+#docker exec -it $ROS_NAME /bin/bash -c "export DISPLAY=${IPADDR}:${DISP_ID} && /root/NLdemo/start.sh" || fail "Demo failed."
