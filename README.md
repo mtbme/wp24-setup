@@ -1,13 +1,16 @@
 # R5-COP natural language interface demo
+This is a natural language robot interface demonstration using ROS, Jackal and Gazebo.
+The main setup script (start...) will pull a Docker image and install the required software in that container.
+It also configures the container to use the host's 3D acceleration capabilities (instead of the built-in software renderer).
 
 ## Requirements
 - a Linux PC with basic 3D acceleration to run the Simulator
 - an Android 4.1+ phone
 - Internet connection for the mobile device and the PC
+- Ubuntu 14.04 (or later)
 
 ## Basic installation using Docker
 The demo runs in a Docker container and it will not modify your host machine.
-This method requires Ubuntu 14.04 (newer versions might also work).
 
 #### Install docker
 <code>sudo apt-get install docker.io</code>
@@ -51,5 +54,6 @@ Remote X11 requests must be enabled. Add <code>DisallowTCP=false</code> to the <
 ##### If the Gazebo simulator shows nothing or a "mixed up" world...
 Quit and restart the demo.
 
-##### If you see libGL errors about missing drivers in the logs
+##### If you see libGL errors about missing drivers
 See http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration for troubleshooting.
+Also check the various log files created by the application and ROS modules.
