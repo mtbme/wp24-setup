@@ -1,6 +1,6 @@
 # R5-COP natural language interface demo
-This is a natural language robot interface demonstration using ROS, Jackal and Gazebo.
-The main setup script (start...) will pull a Docker image and install the required software in that container.
+This is a natural language robot interface demonstration using ROS, Jackal and Gazebo.  
+The main setup script (start...) will pull a Docker image and install the required software in the container.  
 It also configures the container to use the host's 3D acceleration capabilities (instead of the built-in software renderer).
 
 ## Requirements
