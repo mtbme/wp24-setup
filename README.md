@@ -4,10 +4,9 @@ The main setup script (start...) will pull a Docker image and install the requir
 It also configures the container to use the host's 3D acceleration capabilities (instead of the built-in software renderer).
 
 ## Requirements
-- a Linux PC with basic 3D acceleration to run the Simulator
-- an Android 4.1+ phone
-- Internet connection for the mobile device and the PC
-- Ubuntu 14.04 (or later)
+- Ubuntu 14.04 (or later) with 3D acceleration to run the Simulator
+- an Android 4.1+ phone to run the Voice Agent
+- network connection between the mobile device and the host PC
 
 ## Basic installation using Docker
 The demo runs in a Docker container and it will not modify your host machine.
