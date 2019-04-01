@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Simple shell script to set up and start the R5-COP Natural Language Interface ROS demo
+# R5-COP Natural Language Interface ROS demo setup script
 # Created by Tamas Meszaros <meszaros@mit.bme.hu>
 #
 
@@ -44,7 +44,7 @@ else
 fi
 
 cd "$(dirname "$0")"
-demo_home=`pwd`
+demo_home="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [ ! -d "${demo_home}/NLdemo/" ]; then
   fail "R5-COP NL demo files are missing."
